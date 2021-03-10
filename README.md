@@ -1,16 +1,19 @@
 # Integration Engineer Coding Challenge
 
 ## Environment Setup:
--Java:
+<b>Java:</b> <br>
 Install latest Java JDK in your system. <br>
 Once installed, configure the path to bin in the environment variables of your system. <br>
 Run javac and java commands to check if everything has been setup properly.<br>
 Check your java version using java --version command.<br>
--Maven:<br>
+<a href="https://www.oracle.com/java/technologies/javase-downloads.html" target="_blank">Java official website</a><br>
+<b>Maven:</b> <br>
 Download the maven zip file from the official site and configure the PATH variable.<br>
 Run mvn -v command to check the version.<br>
--Eclipse:<br>
+<a href="https://maven.apache.org/download.cgi" target="_blank">Maven official website</a><br>
+<b>Eclipse:</b> <br>
 Download and install the latest Eclipse software.<br>
+<a href="https://www.eclipse.org/downloads/" target="_blank">Eclipse official website</a><br>
 
 ## Source code:
 Get the source code of the repository using its zip file or with git clone command using git bash.<br>
@@ -27,7 +30,7 @@ The REST URL has been configured in the properties file to make an API request a
 ## Output: 
 Output will be the converted JSON data of the senates.<br>
 
-## Partial Output generated from the console:
+## Output generated from the console:
 ```json
 {"members": [
     {
