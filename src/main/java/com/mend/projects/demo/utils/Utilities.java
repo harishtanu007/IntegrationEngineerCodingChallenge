@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import org.json.JSONObject;
 
 import com.mend.projects.demo.APIConsumer;
+import com.mend.projects.demo.models.Address;
 
 
 
@@ -19,6 +20,7 @@ import com.mend.projects.demo.APIConsumer;
  * This class contains utility methods
  */
 public class Utilities {
+
 	private static Logger logger=Logger.getLogger(Utilities.class.getName());
 
 	/**
@@ -41,7 +43,7 @@ public class Utilities {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * This method extracts the JSON value for a given key
 	 *
@@ -50,7 +52,7 @@ public class Utilities {
 	 * @return the JSON value 
 	 */
 	public static String getJSONValue(JSONObject object,String key) {
-	//	logger.info("In getJSONValue method");
+		//	logger.info("In getJSONValue method");
 		if(object!=null) {
 			String value = object.getString(key);
 			if(value!=null) {
@@ -59,29 +61,35 @@ public class Utilities {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 
-	 * This method extracts state value from the given address(which is in the form of string tokens)
-	 * @param address 
-	 * @return state
+	 * This method extracts street and city value from the given address string
+	 * @param address tokens in the form of an array
+	 * @param Address address 
+	 * @return Address address
 	 */
-	public static String getState(String[] address) {
-		//logger.info("In getState method");
-
+	public static Address parseAddress(Address address,String[] addressTokens) {
 		String[] states = {"Alaska", "Alabama", "Arkansas", "American Samoa", "Arizona", "California", "Colorado", "Connecticut", "District of Columbia", "Delaware", "Florida", "Georgia", "Guam", "Hawaii", "Iowa", "Idaho", "Illinois", "Indiana", "Kansas", "Kentucky", "Louisiana", "Massachusetts", "Maryland", "Maine", "Michigan", "Minnesota", "Missouri", "Mississippi", "Montana", "North Carolina", "North Dakota", "Nebraska", "New Hampshire", "New Jersey", "New Mexico", "Nevada", "New York", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Virginia", "Virgin Islands", "Vermont", "Washington DC", "Wisconsin", "West Virginia", "Wyoming"};
 		List<String> listStates=Arrays.asList(states);
-		
-		for (int j = 1; j < address.length; j++) {
-			String token=address[j].toUpperCase().trim();
-			Optional<String> state = listStates.stream().
-					filter(value -> value.toUpperCase().
-							contains(token.trim())).findFirst();
-			if(!state.isEmpty()) {
-				return state.get();
+		String street="";
+
+		for (int j =0; j < addressTokens.length-1; j++) {
+			String token=addressTokens[j].toUpperCase().trim();
+			if(token.length()>0) {
+				Optional<String> temp = listStates.stream().
+						filter(value -> value.toUpperCase().
+								contains(token.trim())).findFirst();
+				if(!temp.isEmpty()) {
+					address.setCity(temp.get());
+				}
+				else {
+					street=street+" "+token;
+				}
 			}
 		}
-		return null;
+		address.setStreet(street.trim());
+		return address;
 	}
 
 

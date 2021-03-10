@@ -1,4 +1,4 @@
-package demo;
+package com.mend.projects.demo.tests;
 
 import static org.junit.Assert.assertTrue;
 
@@ -25,10 +25,7 @@ public class APIConsumerTest {
 	@Spy
     APIConsumer apiConsumer;
 	
-	String jsonContent;
-	
-	String xmlContent;
-	
+	String jsonContent;	
 	
 	@Before
 	public void init() {

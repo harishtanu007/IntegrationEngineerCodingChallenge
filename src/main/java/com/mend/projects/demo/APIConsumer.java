@@ -19,23 +19,18 @@ import com.mend.projects.demo.models.Member;
 import com.mend.projects.demo.models.Response;
 import com.mend.projects.demo.utils.Utilities;
 
-// TODO: Auto-generated Javadoc
 /**
  * APIConsumer class to make REST API request and convert XML to custom JSON format.
  */
 public class APIConsumer {
 
-	/** The rest url. */
+	/** REST url. */
 	private static String REST_URL;
 	
-	/** The logger. */
+	/** logger. */
 	private static Logger logger=Logger.getLogger(APIConsumer.class.getName());
 
-	/**
-	 * The main method.
-	 *
-	 * @param args the arguments
-	 */
+	
 	public static void main(String args[]) {
 		new APIConsumer().getURLData();
 	}
@@ -64,8 +59,6 @@ public class APIConsumer {
 				/*reads response from the rest api */
 				while ((output = reader.readLine()) != null) {
 					content.append(output);
-
-					
 				}
 				//logger.info("Printing content "+content);
 				reader.close();
@@ -122,10 +115,10 @@ public class APIConsumer {
 			Address address=new Address();
 			String tempAddress = arr.getJSONObject(i).getString("address");	
 			String[] result = tempAddress.split(" ");
-			address.setStreet(result[0]);
 			address.setPostal(result[result.length-1]);
-			address.setState(Utilities.getState(result));
-			member.setAddress(address);
+			Address parsedAddress = Utilities.parseAddress(address,result);
+			address.setState(Utilities.getJSONValue(arr.getJSONObject(i),"state"));
+			member.setAddress(parsedAddress);
 
 			tempMemberList.add(member);
 			
